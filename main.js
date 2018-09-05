@@ -10,7 +10,7 @@ var asteroids = [];
 var back = new Background();
 var player1 = new Player(600,350,50,120,playerImg[0]);
 var player2 = new Player(300,350,50,120,playerImg[1]);
-//var asteroid = new Asteroid();
+var asteroid = new Asteroid();
 back.selectImage();
 
 var frames = 0;
@@ -18,9 +18,10 @@ var interval = setInterval(function(){
     frames++;
     ctx.clearRect(0,0, 1000, 600);
     back.draw();
-    player1.rotate(degreesPlayer1);
-    player2.rotate(degreesPlayer2);
-    //asteroid.draw();
+    player1.draw(degreesPlayer1);
+    player2.draw(degreesPlayer2);
+    asteroid.draw();
+    asteroid.move();
 }, 1000/60);
 
 function generateAsteroids() {
@@ -64,7 +65,7 @@ addEventListener("keydown", function(event) {
             } else if(degreesPlayer1 > 360) {
                 degreesPlayer1 = degreesPlayer1 - 360;
             }
-            player1.rotate(degreesPlayer1);
+            player1.draw(degreesPlayer1);
             break;
         // Left Arrow
         case 37:
@@ -74,7 +75,7 @@ addEventListener("keydown", function(event) {
             } else if(degreesPlayer1 < 0) {
                 degreesPlayer1 = degreesPlayer1 + 360;
             }
-            player1.rotate(degreesPlayer1);
+            player1.draw(degreesPlayer1);
             break;
     }
 });
@@ -88,12 +89,12 @@ addEventListener("keydown", function(event) {
         // D  
         case 68:
             degreesPlayer2 += 15;
-            player2.rotate(degreesPlayer2);
+            player2.draw(degreesPlayer2);
             break;
         // A
         case 65:
             degreesPlayer2 -= 15;
-            player2.rotate(degreesPlayer2);
+            player2.draw(degreesPlayer2);
             break;
         default:
             break;

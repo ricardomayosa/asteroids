@@ -5,7 +5,7 @@ class Item {
         this.width = width;
         this.height = height;
         this.image = new Image();
-        this.image.src = image;
+        this.image.src = './images/asteroid.png';
     }
     draw() {
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);

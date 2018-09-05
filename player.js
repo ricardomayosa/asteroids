@@ -12,29 +12,24 @@ class Player extends Item {
         console.log("Chocaste");
     }
     move() {
-        console.log('Degrees: ' + this.degrees);
-        console.log('RAD: ' + this.degrees * (Math.PI / 180));
         this.dx = Math.sin(this.degrees * (Math.PI / 180)) * 40;
-        console.log('Valor de X: ' + this.dx);
         this.dy = Math.cos(this.degrees * (Math.PI / 180)) * 40;
-        console.log('Valor de Y: ' + this.dy);
         this.x += this.dx;
         this.y -= this.dy;
         
         if(this.x > canvas.width) {
+            // Reaparece a la izquierda
             this.x = 0;
         } 
         if(this.x < 0) {
+            // Reaparece a la derecha
             this.x = canvas.width;
         } 
-        
         if (this.y > canvas.height) {
-            console.log('Ya se salió abajo');
             // Reaparece arriba
             this.y = -this.height;
         } 
         if (this.y + this.height < 0)  {
-            console.log('Ya se salió arriba');
             // Reaparece abajo
             this.y = canvas.height;
         } 
@@ -43,7 +38,7 @@ class Player extends Item {
     shoot() {
         console.log("PIU PIU");
     }
-    rotate(degrees) {
+    draw(degrees) {
         this.degrees = degrees;
         ctx.save();
         ctx.beginPath();
