@@ -6,16 +6,18 @@ class Player extends Item {
         this.score = 0;
         this.dx = 0;
         this.dy = 0;
+        this.explosion = new Image();
+        this.explosion.src = './images/explosion.png';
     }
     collision(item) {
         //this.alive = false;
         return (
-            this.x < item.x + item.width &&
+            this.x < item.x + item.width - 10 &&
             this.x + this.width > item.x &&
-            this.y < item.y + item.height &&
+            this.y < item.y + item.height - 10 &&
             this.y + this.height > item.y
         );
-        console.log("Chocaste");
+        // console.log("Chocaste");
     }
     move() {
         this.dx = Math.sin(this.degrees * (Math.PI / 180)) * 40;

@@ -20,9 +20,6 @@ var interval = setInterval(function(){
     ctx.clearRect(0,0, 1000, 600);
     back.draw();
     drawPlayers();
-    
-    //asteroid.draw();
-    //asteroid.move();
     generateAsteroids();
     drawAsteroids(frames);
 
@@ -46,44 +43,31 @@ function generateAsteroids() {
     if (frames % 140 === 0) {
         let asteroid = new Asteroid(asteroidImg);
         asteroids.push(asteroid);
-        console.log("Asteroide generado");
-        // La cantidad de puntos es igual al tamaño del arreglo hasta este punto - 3
-        // if(obstacles.length > 3) {
-        //     score = obstacles.length - 3;
-        // }
     }
 }
 
 function drawAsteroids(frames) {
     asteroids.forEach(function(asteroid) {
-        // Mueve los obstáculos hacia abajo
-        // if (frames % 10 === 0) {
-        asteroid.move();
-        
         asteroid.draw();
+        asteroid.move();
         if(player1.collision(asteroid)) {
-            //console.log('P1 choco');
             player1.alive = false;
-            //console.log("P1 esta vivo? " + player1.alive);
-            //clearInterval(interval);
-            checkGameOver();
+            ctx.drawImage(player1.explosion, player1.x, player1.y, 300, 300);
+            //checkGameOver();
         }
         if(player2.collision(asteroid)) {
-            //console.log('P2 choco');
-            //clearInterval(interval);
             player2.alive = false;
-            //console.log("P2 esta vivo? " + player2.alive);
-            checkGameOver();
+            ctx.drawImage(player2.explosion, player2.x, player2.y, 300, 300);
+            // checkGameOver();
         }
     });
 }
 
-function checkGameOver() {
-    if(player1.alive === false && player2.alive === false) {
-        //clearInterval(interval);
-        console.log('Game Over');
-    }
-}
+// function checkGameOver() {
+//     if(player1.alive === false && player2.alive === false) {
+//         console.log('Game Over');
+//     }
+// }
 
 addEventListener("keydown", function(event) {
     switch(event.keyCode) {
