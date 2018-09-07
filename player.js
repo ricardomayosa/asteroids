@@ -7,8 +7,14 @@ class Player extends Item {
         this.dx = 0;
         this.dy = 0;
     }
-    colision() {
-        this.alive = false;
+    collision(item) {
+        //this.alive = false;
+        return (
+            this.x < item.x + item.width &&
+            this.x + this.width > item.x &&
+            this.y < item.y + item.height &&
+            this.y + this.height > item.y
+        );
         console.log("Chocaste");
     }
     move() {
@@ -19,7 +25,7 @@ class Player extends Item {
         
         if(this.x > canvas.width) {
             // Reaparece a la izquierda
-            this.x = 0;
+            this.x = -this.width;
         } 
         if(this.x < 0) {
             // Reaparece a la derecha

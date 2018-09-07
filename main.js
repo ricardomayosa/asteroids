@@ -1,6 +1,7 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var playerImg = ['./images/player1.png', './images/player2.png'];
+var asteroidImg = './images/asteroid.png';
 var degreesPlayer1 = 0;
 var degreesPlayer2 = 0;
 var asteroids = [];
@@ -18,16 +19,34 @@ var interval = setInterval(function(){
     frames++;
     ctx.clearRect(0,0, 1000, 600);
     back.draw();
-    player1.draw(degreesPlayer1);
-    player2.draw(degreesPlayer2);
-    asteroid.draw();
-    asteroid.move();
+    drawPlayers();
+    
+    //asteroid.draw();
+    //asteroid.move();
+    generateAsteroids();
+    drawAsteroids(frames);
+
 }, 1000/60);
+
+function drawPlayers() {
+    if(player1.alive && player2.alive) {
+        player1.draw(degreesPlayer1);
+        player2.draw(degreesPlayer2);
+    } else if(player1.alive && !player2.alive) {
+        player1.draw(degreesPlayer1);
+    } else if(!player1.alive && player2.alive) {
+        player2.draw(degreesPlayer2);
+    } else {
+        clearInterval(interval);
+    }
+    
+}
 
 function generateAsteroids() {
     if (frames % 140 === 0) {
-        let asteroid = new Asteroid();
+        let asteroid = new Asteroid(asteroidImg);
         asteroids.push(asteroid);
+        console.log("Asteroide generado");
         // La cantidad de puntos es igual al tamaño del arreglo hasta este punto - 3
         // if(obstacles.length > 3) {
         //     score = obstacles.length - 3;
@@ -38,16 +57,32 @@ function generateAsteroids() {
 function drawAsteroids(frames) {
     asteroids.forEach(function(asteroid) {
         // Mueve los obstáculos hacia abajo
-        if (frames % 10 === 0) {
-          asteroid.moveDown();
-        }
+        // if (frames % 10 === 0) {
+        asteroid.move();
+        
         asteroid.draw();
-        // if (car.collision(obstacle)) {
-        //   clearInterval(interval);
-        //   punkt.gameOver();
-        //   document.getElementById("start-button").disabled = false;
-        // }
+        if(player1.collision(asteroid)) {
+            //console.log('P1 choco');
+            player1.alive = false;
+            //console.log("P1 esta vivo? " + player1.alive);
+            //clearInterval(interval);
+            checkGameOver();
+        }
+        if(player2.collision(asteroid)) {
+            //console.log('P2 choco');
+            //clearInterval(interval);
+            player2.alive = false;
+            //console.log("P2 esta vivo? " + player2.alive);
+            checkGameOver();
+        }
     });
+}
+
+function checkGameOver() {
+    if(player1.alive === false && player2.alive === false) {
+        //clearInterval(interval);
+        console.log('Game Over');
+    }
 }
 
 addEventListener("keydown", function(event) {

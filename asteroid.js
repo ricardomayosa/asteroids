@@ -1,8 +1,8 @@
-class Asteroid extends Item {
+class Asteroid {
     constructor() {
-        super();
-        this.x = 50;
-        this.y = 50;
+        
+        this.x = -100;
+        this.y = -100;
         this.angle = Math.random() * 360;
         this.dx = 0;
         this.dy = 0;
@@ -23,7 +23,7 @@ class Asteroid extends Item {
 
         if(this.x > canvas.width) {
             // Reaparece a la izquierda
-            this.x = 0;
+            this.x = -this.width;
         } 
         if(this.x + this.width < 0) {
             // Reaparece a la derecha
@@ -37,5 +37,8 @@ class Asteroid extends Item {
             // Reaparece abajo
             this.y = canvas.height;
         } 
+    }
+    draw() {
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
     }
 }
