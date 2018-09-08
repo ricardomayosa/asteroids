@@ -30,8 +30,8 @@ class Laser {
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
     }
     move() {
-        this.dx = Math.sin(this.angle * (Math.PI / 180)) * 40;
-        this.dy = Math.cos(this.angle * (Math.PI / 180)) * 40;
+        this.dx = Math.sin(this.angle * (Math.PI / 180)) * 20;
+        this.dy = Math.cos(this.angle * (Math.PI / 180)) * 20;
         this.x += this.dx;
         this.y -= this.dy;
         
