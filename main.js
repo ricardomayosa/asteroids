@@ -5,13 +5,13 @@ var asteroidImg = './images/asteroid.png';
 var degreesPlayer1 = 0;
 var degreesPlayer2 = 0;
 var asteroids = [];
-
-//ctx.strokeRect(0,0,canvas.width, canvas.height);
+var lasers = [];
 
 var back = new Background();
-var player1 = new Player(600,350,50,120,playerImg[0]);
-var player2 = new Player(300,350,50,120,playerImg[1]);
-var asteroid = new Asteroid();
+// var player1 = new Player(600,350,50,120,playerImg[0]);
+var player1 = new Player(600,350,50,70,playerImg[0]);
+var player2 = new Player(300,350,50,70,playerImg[1]);
+//var asteroid = new Asteroid();
 back.selectImage();
 
 var frames = 0;
@@ -22,7 +22,13 @@ var interval = setInterval(function(){
     drawPlayers();
     generateAsteroids();
     drawAsteroids(frames);
-
+    // generateLasers();
+    // drawLasers();
+    //drawLasers();
+    if(lasers.length > 0) {
+        //console.log('Length: ' + lasers.length);
+        drawLasers();
+    }
 }, 1000/60);
 
 function drawPlayers() {
@@ -36,7 +42,6 @@ function drawPlayers() {
     } else {
         clearInterval(interval);
     }
-    
 }
 
 function generateAsteroids() {
@@ -52,23 +57,39 @@ function drawAsteroids(frames) {
         asteroid.move();
         if(player1.collision(asteroid)) {
             player1.alive = false;
-            ctx.drawImage(player1.explosion, player1.x, player1.y, 300, 300);
-            //checkGameOver();
+            ctx.drawImage(player1.explosion, player1.x, player1.y, 300, 150);
         }
         if(player2.collision(asteroid)) {
             player2.alive = false;
-            ctx.drawImage(player2.explosion, player2.x, player2.y, 300, 300);
-            // checkGameOver();
+            ctx.drawImage(player2.explosion, player2.x, player2.y, 300, 150);
         }
     });
 }
 
+function generateLasers(player,x,y,angle) {
+    // if (frames % 140 === 0) {
+        
+    // }
+    let laser = new Laser(player,x,y,angle);
+    lasers.push(laser);
+    // console.log('entered drawAsteroids()');
+    // let laser = new Laser(200,200,angle);
+    // lasers.push(laser);
+    // console.log('length' + lasers.length);
+}
+function drawLasers(frame) {
+    lasers.forEach(function(laser) {
+        laser.draw();
+        laser.move();
+    })
+}
 // function checkGameOver() {
 //     if(player1.alive === false && player2.alive === false) {
 //         console.log('Game Over');
 //     }
 // }
 
+// P1 Controlls
 addEventListener("keydown", function(event) {
     switch(event.keyCode) {
         // PLAYER 1
@@ -96,6 +117,17 @@ addEventListener("keydown", function(event) {
             }
             player1.draw(degreesPlayer1);
             break;
+        // Dash '-'
+        case 189:
+            console.log('Angles when key pressed: ' + degreesPlayer1);
+            // player1.x + player1.x/2, player1.y - player1.y/2, 
+            generateLasers('player 1', player1.x, player1.y, degreesPlayer1);
+            //player1.x, player1.y, 
+            
+            //drawLasers();
+            break;
+        default:
+            break;
     }
 });
 addEventListener("keydown", function(event) {
@@ -114,6 +146,14 @@ addEventListener("keydown", function(event) {
         case 65:
             degreesPlayer2 -= 15;
             player2.draw(degreesPlayer2);
+            break;
+        case 69:
+            console.log('Angles when key pressed: ' + degreesPlayer1);
+            // player1.x + player1.x/2, player1.y - player1.y/2, 
+            generateLasers('player 2', player2.x, player2.y, degreesPlayer2);
+            //player1.x, player1.y, 
+            
+            //drawLasers();
             break;
         default:
             break;

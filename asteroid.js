@@ -1,6 +1,5 @@
 class Asteroid {
     constructor() {
-        
         this.x = -100;
         this.y = -100;
         this.angle = Math.random() * 360;

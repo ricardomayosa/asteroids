@@ -12,10 +12,12 @@ class Player extends Item {
     collision(item) {
         //this.alive = false;
         return (
-            this.x < item.x + item.width - 10 &&
-            this.x + this.width > item.x &&
-            this.y < item.y + item.height - 10 &&
-            this.y + this.height > item.y
+            //!
+            this.x + this.width/2 < item.x + item.width - 10 &&
+            this.x + this.width/2 > item.x &&
+            //!
+            this.y + this.height/2 < item.y + item.height - 10 &&
+            this.y + this.height/2 > item.y
         );
         // console.log("Chocaste");
     }
