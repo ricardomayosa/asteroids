@@ -28,10 +28,24 @@ class Laser {
         // ctx.restore();
 
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+        ctx.strokeRect(this.x, this.y, this.width, this.height);
+    }
+    collision(item) {
+        //this.alive = false;
+        console.log('Entered collision check');
+        return
+            //!
+            (this.x < item.x + item.width) &&
+            (this.x + this.width > item.x) &&
+            (this.y < item.y + item.height) &&
+            (this.y + this.height > item.y);
+        // console.log("Chocaste");
     }
     move() {
-        this.dx = Math.sin(this.angle * (Math.PI / 180)) * 20;
-        this.dy = Math.cos(this.angle * (Math.PI / 180)) * 20;
+        // * 20
+        this.dx = Math.sin(this.angle * (Math.PI / 180)) * 10;
+        // * 20
+        this.dy = Math.cos(this.angle * (Math.PI / 180)) * 10;
         this.x += this.dx;
         this.y -= this.dy;
         

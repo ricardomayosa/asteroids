@@ -1,12 +1,12 @@
-class Asteroid {
-    constructor() {
-        this.x = -100;
-        this.y = -100;
-        this.angle = Math.random() * 360;
+class LittleAsteroid {
+    constructor(x, y, angle) {
+        this.x = x;
+        this.y = y;
+        this.angle = angle;
         this.dx = 0;
         this.dy = 0;
-        this.width = 100;
-        this.height = 100;
+        this.width = 50;
+        this.height = 50;
         this.image = new Image();
         this.image.src = './images/asteroid.png';
         this.alive = true;

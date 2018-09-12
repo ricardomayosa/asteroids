@@ -12,6 +12,15 @@ class Ufo {
         this.image.src = './images/ufo.png';
         this.alive = true;
     }
+    collision(item) {
+        //this.alive = false;
+        // console.log('Entered collision check');
+        return (this.x < item.x + item.width) &&
+            (this.x + this.width > item.x) &&
+            (this.y < item.y + item.height) &&
+            (this.y + this.height > item.y);
+        // console.log("Chocaste");
+    }
     move() {
         // this.x += this.velX;
         // this.y += this.velY;
@@ -40,9 +49,9 @@ class Ufo {
     }
     draw() {
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+        ctx.strokeRect(this.x, this.y, this.width, this.height);
     }
     shoot(player) {
-        console.log("PIU PIU");
         generateLasers(player, this.x, this.y, this.shootAngle);
     }
 }

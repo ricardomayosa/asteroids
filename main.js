@@ -8,18 +8,20 @@ var ufoImg = './images/ufo.png';
 var degreesPlayer1 = 0;
 var degreesPlayer2 = 0;
 var asteroids = [];
+var littleAsteroids = [];
 var ufos = [];
 var lasers = [];
 var back = new Background();
 back.selectImage();
-var player1 = new Player(600,350,50,70,playerImg[0]);
-var player2 = new Player(300,350,50,70,playerImg[1]);
+var player1 = new Player(600,350,60,60,playerImg[0]);
+var player2 = new Player(300,350,60,60,playerImg[1]);
 
 
 var frames = 0;
 var interval = setInterval(function(){
     frames++;
     ctx.clearRect(0,0, 1000, 600);
+    ctx.strokeRect(0,0,998,598);
     back.draw();
     drawPlayers();
     generateAsteroids();
@@ -29,7 +31,11 @@ var interval = setInterval(function(){
     if(lasers.length > 0) {
         drawLasers();
     }
+    if(littleAsteroids.length > 0) {
+        drawLittleAsteroids();
+    }
 }, 1000/60);
+
 
 function drawPlayers() {
     if(player1.alive && player2.alive) {
@@ -56,12 +62,13 @@ function drawAsteroids() {
         asteroid.draw();
         asteroid.move();
         if(player1.collision(asteroid)) {
+            if(player1.alive) ctx.drawImage(player1.explosion, player1.x, player1.y, 300, 150);
             player1.alive = false;
-            ctx.drawImage(player1.explosion, player1.x - 25, player1.y - 35, 300, 150);
+            
         }
         if(player2.collision(asteroid)) {
+            if(player2.alive) ctx.drawImage(player2.explosion, player2.x, player2.y, 300, 150);
             player2.alive = false;
-            ctx.drawImage(player2.explosion, player2.x - 25, player2.y - 35, 300, 150);
         }
     });
 }
@@ -82,12 +89,33 @@ function drawUfos() {
         }
 
         if(player1.collision(ufo)) {
+            if(player1.alive) ctx.drawImage(player1.explosion, player1.x, player1.y, 300, 150);
             player1.alive = false;
-            ctx.drawImage(player1.explosion, player1.x - 25, player1.y - 35, 300, 150);
         }
         if(player2.collision(ufo)) {
+            if(player2.alive) ctx.drawImage(player2.explosion, player2.x, player2.y, 300, 150);
             player2.alive = false;
-            ctx.drawImage(player2.explosion, player2.x - 25, player2.y - 35, 300, 150);
+        }
+    });
+}
+function generateLittleAsteroids(x,y,angle) {
+    let littleAsteroid1 = new LittleAsteroid(x, y, angle + 90);
+    let littleAsteroid2 = new LittleAsteroid(x, y, angle - 90);
+    littleAsteroids.push(littleAsteroid1, littleAsteroid2);
+}
+
+function drawLittleAsteroids() {
+    littleAsteroids.forEach(function(littleAsteroid) {
+        littleAsteroid.draw();
+        littleAsteroid.move();
+        if(player1.collision(littleAsteroid)) {
+            if(player1.alive) ctx.drawImage(player1.explosion, player1.x, player1.y, 300, 150);
+            player1.alive = false;
+            
+        }
+        if(player2.collision(littleAsteroid)) {
+            if(player2.alive) ctx.drawImage(player2.explosion, player2.x, player2.y, 300, 150);
+            player2.alive = false;
         }
     });
 }
@@ -97,10 +125,76 @@ function generateLasers(player,x,y,angle) {
     lasers.push(laser);
 }
 
-function drawLasers(frame) {
-    lasers.forEach(function(laser) {
+function drawLasers() {
+    lasers.forEach(function(laser, laserIndex) {
         laser.draw();
         laser.move();
+        if(player1.collision(laser) && laser.player === 'ufo') {
+            player1.alive = false;
+            console.log('P1 hit by UFO');
+            ctx.drawImage(player1.explosion, player1.x, player1.y, 300, 150);
+        }
+        if(player2.collision(laser) && laser.player === 'ufo') {
+            player2.alive = false;
+            console.log('P2 hit by UFO');
+            ctx.drawImage(player2.explosion, player2.x, player2.y, 300, 150);
+        }
+        if(asteroids.length > 0) {   
+            asteroids.forEach((asteroid, asteroidIndex) => {
+                if(asteroid.collision(laser)) {
+                    if(laser.player !== 'ufo') {
+                        console.log('asteroid hit!');
+                        generateLittleAsteroids(asteroid.x, asteroid.y, asteroid.angle);
+                        asteroids.splice(asteroidIndex, 1);
+                        lasers.splice(laserIndex, 1)
+                        if(laser.player === 'player 1') {
+                            player1.score += 10;
+                        } else if(laser.player === 'player 2') {
+                            player2.score += 10;
+                        }
+                    }
+                }
+            });
+        }
+        if(littleAsteroids.length > 0) {   
+            littleAsteroids.forEach((littleAsteroid, littleAsteroidIndex) => {
+                if(littleAsteroid.collision(laser)) {
+                    if(laser.player !== 'ufo') {
+                        console.log('little asteroid hit!');
+                        littleAsteroids.splice(littleAsteroidIndex, 1);
+                        lasers.splice(laserIndex, 1)
+                        if(laser.player === 'player 1') {
+                            player1.score += 5;
+                        } else if(laser.player === 'player 2') {
+                            player2.score += 5;
+                        }
+                    }
+                }
+            });
+        }
+        if(ufos.length > 0) {
+            ufos.forEach((ufo, ufoIndex) => {
+                //console.log(laser);
+                //console.log(asteroid.collision(laser));
+                if(ufo.collision(laser)) {
+                    if(laser.player !== 'ufo') {
+                        console.log('ufo hit!');
+                        ufos.splice(ufoIndex, 1);
+                        lasers.splice(laserIndex, 1)
+                        if(laser.player === 'player 1') {
+                            player1.score += 15;
+                        } else if(laser.player === 'player 1') {
+                            player2.score += 15;
+                        }
+                    }
+
+                    
+                    // if(laser.player !== 'ufo') {
+                    //     asteroids.splice(index, 1);
+                    // }
+                }
+            });
+        }
     });
 }
 

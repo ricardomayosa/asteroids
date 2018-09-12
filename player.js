@@ -11,14 +11,11 @@ class Player extends Item {
     }
     collision(item) {
         //this.alive = false;
-        return (
-            //!
-            this.x + this.width/2 < item.x + item.width - 10 &&
-            this.x + this.width/2 > item.x &&
-            //!
-            this.y + this.height/2 < item.y + item.height - 10 &&
-            this.y + this.height/2 > item.y
-        );
+        return (this.x < item.x + item.width) &&
+            (this.x + this.width > item.x) &&
+            (this.y < item.y + item.height) &&
+            (this.y + this.height > item.y);
+        
         // console.log("Chocaste");
     }
     move() {
@@ -59,7 +56,9 @@ class Player extends Item {
         // draw the image
         // since the context is rotated, the image will be rotated also
         ctx.drawImage(this.image, -this.width/2, -this.height/2, this.width, this.height);
+        
         // we’re done with the rotating so restore the unrotated context
         ctx.restore();
+        ctx.strokeRect(this.x, this.y, this.width, this.height);
     }
 }
