@@ -49,7 +49,7 @@ class Ufo {
     }
     draw() {
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-        ctx.strokeRect(this.x, this.y, this.width, this.height);
+        //ctx.strokeRect(this.x, this.y, this.width, this.height);
     }
     shoot(player) {
         generateLasers(player, this.x, this.y, this.shootAngle);

@@ -26,9 +26,21 @@ var ufos            = [];
 var lasers          = [];
 // Select random background image
 var back = new Background();
+// Keys
+// var map = {
+//      65:  false
+//     ,68:  false 
+//     ,69:  false
+//     ,87:  false
+//     ,37:  false
+//     ,38:  false
+//     ,39:  false
+//     ,189: false
+// };
+var map = {};
 // Generate players
-var player1 = new Player(600,350,60,60,playerImg[0]);
-var player2 = new Player(300,350,60,60,playerImg[1]);
+var player2 = new Player(600,350,60,60,playerImg[0]);
+var player1 = new Player(300,350,60,60,playerImg[1]);
 
 window.onload = function() {
     document.getElementById("start-button").onclick = function() {
@@ -83,6 +95,10 @@ function startGame() {
         if(littleAsteroids.length > 0) {
             drawLittleAsteroids();
         }
+        ctx.font = "20px Avenir";
+        ctx.fillStyle = "white"
+        ctx.fillText("Player 2: " + player2.score, 20, 570);
+        ctx.fillText("Player 1: " + player1.score, 850, 570);
     }, 1000/60);
 }
 // Draw player's ship if player is still alive
@@ -96,6 +112,7 @@ function drawPlayers(interval) {
         player2.draw(degreesPlayer2);
     } else {
         // Stop if both players are dead
+        console.log(back.image.src);
         backgroundSound.pause();
         ufoSound.currentTime = 0;
         ufoSound.addEventListener('ended', function() {
@@ -105,6 +122,19 @@ function drawPlayers(interval) {
         ufoSound.play();
         clearInterval(interval);
         document.getElementById("start-button").disabled = false;
+        ctx.font = "90px Avenir";
+        ctx.fillStyle = "white"
+        ctx.fillText("GAME OVER", 250, 300);
+        if(player1.score > player2.score) {
+            ctx.font = "40px Avenir";
+            ctx.fillText("PLAYER 1 WINS!", 370, 400);
+        } else if(player2.score > player1.score) {
+            ctx.font = "40px Avenir";
+            ctx.fillText("PLAYER 2 WINS!", 370, 400);
+        } else {
+            ctx.font = "40px Avenir";
+            ctx.fillText("IT'S A TIE!", 400, 400);
+        }
     }
 }
 // Generate and add asteroids to asteroids array
@@ -274,6 +304,31 @@ function drawLasers() {
         }
     });
 }
+// Simultaneous controlls
+// onkeydown = onkeyup = function(e){
+//     e = e || event; // to deal with IE
+//     map[e.keyCode] = e.type == 'keydown';
+//     /* insert conditional here */
+    
+//     if(map[38] && map[87] && map[189] && map[69]) {
+//         console.log('buth up');
+//         if(player1.alive && player2.alive) {
+//             player1.move(degreesPlayer1);
+//             generateLasers('player 1', player1.x, player1.y, degreesPlayer1);
+//             player2.move(degreesPlayer2);
+//             generateLasers('player 2', player2.x, player2.y, degreesPlayer2);
+//         }
+//     } else if(map[38] && map[87]) {
+//         if(player1.alive && player2.alive) {
+//             player1.move(degreesPlayer1);
+//             player2.move(degreesPlayer2);
+//         }   
+//     } else if(map[38]) {
+//         if(player1.alive) player1.move(degreesPlayer1);
+//     } else if(map[87]) {
+//         if(player2.alive) player2.move(degreesPlayer2);
+//     }
+// }
 // P1 Controlls
 addEventListener("keydown", function(event) {
     switch(event.keyCode) {
@@ -306,10 +361,9 @@ addEventListener("keydown", function(event) {
                 player1.draw(degreesPlayer1);
             }
             break;
-        // Dash '-'
-        case 189:
+        // Dash 'shift'
+        case 16:
             if(player1.alive) generateLasers('player 1', player1.x, player1.y, degreesPlayer1);
-            //laserSound.play();
             break;
         default:
             break;
@@ -322,7 +376,6 @@ addEventListener("keydown", function(event) {
         // W
         case 87:
             if(player2.alive) player2.move(degreesPlayer2);
-            
             break;
         // D  
         case 68:
@@ -341,7 +394,6 @@ addEventListener("keydown", function(event) {
         // E
         case 69:
             if(player2.alive) generateLasers('player 2', player2.x, player2.y, degreesPlayer2);
-            //laserSound.play();
             break;
         default:
             break;

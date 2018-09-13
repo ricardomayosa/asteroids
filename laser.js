@@ -28,7 +28,7 @@ class Laser {
         // ctx.restore();
 
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-        ctx.strokeRect(this.x, this.y, this.width, this.height);
+        //ctx.strokeRect(this.x, this.y, this.width, this.height);
     }
     collision(item) {
         //this.alive = false;

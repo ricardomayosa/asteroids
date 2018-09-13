@@ -9,9 +9,7 @@ class Background {
             'https://bit.ly/2opSz89',
             'https://bit.ly/2BYV4Yw',
             'https://bit.ly/2LzilQr',
-            'https://bit.ly/2LCtxvw',
-            'https://bit.ly/2ogHGVU',
-            'https://bit.ly/2wvInyn'
+            'https://bit.ly/2LCtxvw'
         ];
         this.image.src = '';
     }

@@ -9,6 +9,6 @@ class Item {
     }
     draw() {
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-        ctx.strokeRect(this.x, this.y, this.width, this.height);
+        //ctx.strokeRect(this.x, this.y, this.width, this.height);
     }
 }

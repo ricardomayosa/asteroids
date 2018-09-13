@@ -59,6 +59,6 @@ class Player extends Item {
         
         // we’re done with the rotating so restore the unrotated context
         ctx.restore();
-        ctx.strokeRect(this.x, this.y, this.width, this.height);
+        //ctx.strokeRect(this.x, this.y, this.width, this.height);
     }
 }
