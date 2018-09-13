@@ -49,22 +49,6 @@ class Laser {
         this.x += this.dx;
         this.y -= this.dy;
         
-        // if(this.x > canvas.width) {
-        //     // Reaparece a la izquierda
-        //     this.x = -this.width;
-        // } 
-        // if(this.x + this.width < 0) {
-        //     // Reaparece a la derecha
-        //     this.x = canvas.width;
-        // } 
-        // if (this.y > canvas.height) {
-        //     // Reaparece arriba
-        //     this.y = -this.height;
-        // } 
-        // if (this.y + this.height < 0)  {
-        //     // Reaparece abajo
-        //     this.y = canvas.height;
-        // } 
     }
 
 }

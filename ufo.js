@@ -1,7 +1,7 @@
 class Ufo {
     constructor() {
-        this.x = 500;
-        this.y = 300;
+        this.x = -100;
+        this.y = -100;
         this.angle = Math.random() * 360;
         this.shootAngle = Math.random() * 360;
         this.dx = 0;
