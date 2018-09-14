@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,17 +8,80 @@
     <title>Meteors</title>
     <link rel="stylesheet" href="./styles.css">
 </head>
+
 <body>
     <div class="game-intro">
         <!-- <img src="./images/logo.png" alt="" class="logo-img">
         <br> -->
-        <p>Destroy as many Meteors and UFOs as possible!</p>
-        <button id="start-button">StartGame</button>
+
+
+        <div class="start">
+            <p>Destroy as many Meteors and UFOs as possible!</p>
+            <button id="start-button">StartGame</button>
+        </div>
+
+
         <!-- <img src="./images/arrows.png" alt="" class="arrows-img"> -->
     </div>
-    <div >
+    <div class="game-board">
+        <div class="instructions">
+            <ul>
+                <li>
+                    <h3>Player 1</h3>
+                </li>
+                <li>
+                    <img src="./images/keys/e.png" alt="e key" height="40" width="40"> Shoot
+                </li>
+                <li>
+                    <img src="./images/keys/a.png" alt="a key" height="40" width="40"> Rotate Left
+                </li>
+                <li>
+                    <img src="./images/keys/d.png" alt="d key" height="40" width="40"> Rotate Right
+                </li>
+                <li>
+                    <img src="./images/keys/w.png" alt="w key" height="40" width="40"> Move
+                </li>
+            </ul>
+        </div>
         <canvas id="canvas" width="1000" height="600"></canvas>
+        <div class="instructions">
+            <ul>
+                <li>
+                    <h3>Player 2</h3>
+                </li>
+                <li>
+                    <img src="./images/keys/shift.png" alt="shift key" height="40" width="40"> Shoot
+                </li>
+                <li>
+                    <img src="./images/keys/left.png" alt="left key" height="40" width="40"> Rotate Left
+                </li>
+                <li>
+                    <img src="./images/keys/right.png" alt="right key" height="40" width="40"> Rotate Right
+                </li>
+                <li>
+                    <img src="./images/keys/up.png" alt="up key" height="40" width="40"> Move
+                </li>
+            </ul>
+        </div>
+
     </div>
+    <div id="instructions">
+
+
+    </div>
+
+
+    <!-- SCRIPTS -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous"> -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script> -->
+
     <script src="./item.js"></script>
     <script src="./player.js"></script>
     <script src="./asteroid.js"></script>
@@ -26,6 +90,7 @@
     <script src="./ufo.js"></script>
     <script src="./background.js"></script>
     <script src="./main.js"></script>
-    
+
 </body>
+
 </html>

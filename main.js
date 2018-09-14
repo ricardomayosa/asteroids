@@ -56,7 +56,7 @@ window.onload = function() {
     };
 }
 function startGame() {
-    console.log('starting game');
+    // console.log('starting game');
     // Setting default initial state
     ctx.clearRect(0,0, 1000, 600);
     back.selectImage();
