@@ -39,9 +39,8 @@ var back = new Background();
 // };
 var map = {};
 // Generate players
-var player2 = new Player(600,350,60,60,playerImg[0]);
+var player2 = new Player(800,350,60,60,playerImg[0]);
 var player1 = new Player(300,350,60,60,playerImg[1]);
-
 window.onload = function() {
     document.getElementById("start-button").onclick = function() {
         ufoSound.pause();
@@ -56,7 +55,6 @@ window.onload = function() {
         startGame();
     };
 }
-
 function startGame() {
     console.log('starting game');
     // Setting default initial state
@@ -68,8 +66,8 @@ function startGame() {
     player2.alive = true;
     player1.score = 0;
     player2.score = 0;
-    player1.x = 600;
-    player2.x = 300;
+    player1.x = 300;
+    player2.x = 600;
     player1.y = 350;
     player2.y = 350;
     asteroids = [];
@@ -77,7 +75,6 @@ function startGame() {
     ufos = [];
     lasers = [];
     var frames = 0;
-
     // Animation
     var interval = setInterval(function(){
         frames++;
@@ -97,8 +94,8 @@ function startGame() {
         }
         ctx.font = "20px Avenir";
         ctx.fillStyle = "white"
-        ctx.fillText("Player 2: " + player2.score, 20, 570);
-        ctx.fillText("Player 1: " + player1.score, 850, 570);
+        ctx.fillText("Player 1: " + player1.score, 20, 570);
+        ctx.fillText("Player 2: " + player2.score, 850, 570);
     }, 1000/60);
 }
 // Draw player's ship if player is still alive
@@ -147,7 +144,7 @@ function generateAsteroids(frames) {
 }
 // Animate asteroids
 function drawAsteroids() {
-    asteroids.forEach(function(asteroid) {
+    asteroids.forEach((asteroid) => {
         asteroid.draw();
         asteroid.move();
         // Check collision with player 1
@@ -177,7 +174,7 @@ function generateUfos(frames) {
 }
 // Animate ufos
 function drawUfos(frames) {
-    ufos.forEach(function(ufo) {
+    ufos.forEach((ufo) => {
         ufo.draw();
         ufo.move();
         if (frames % 100 === 0) {
@@ -206,7 +203,7 @@ function generateLittleAsteroids(x,y,angle) {
 }
 // Animate little asteroids
 function drawLittleAsteroids() {
-    littleAsteroids.forEach(function(littleAsteroid) {
+    littleAsteroids.forEach((littleAsteroid) => {
         littleAsteroid.draw();
         littleAsteroid.move();
         // Check collision with player 1
@@ -231,7 +228,7 @@ function generateLasers(player,x,y,angle) {
 }
 // Animate laser
 function drawLasers() {
-    lasers.forEach(function(laser, laserIndex) {
+    lasers.forEach((laser, laserIndex) => {
         laser.draw();
         laser.move();
         //laserSound.play();
@@ -329,71 +326,71 @@ function drawLasers() {
 //         if(player2.alive) player2.move(degreesPlayer2);
 //     }
 // }
-// P1 Controlls
+// P2 Controlls
 addEventListener("keydown", function(event) {
     switch(event.keyCode) {
         // PLAYER 1
         // Up Arrow
         case 38:
-            if(player1.alive) player1.move(degreesPlayer1);
+            if(player2.alive) player2.move(degreesPlayer1);
             break;
         // Right Arrow    
         case 39:
-            if(player1.alive) {
-                degreesPlayer1 += 15;
-                if(degreesPlayer1 === 360) {
-                    degreesPlayer1 = 0;
-                } else if(degreesPlayer1 > 360) {
-                    degreesPlayer1 = degreesPlayer1 - 360;
+            if(player2.alive) {
+                degreesPlayer2 += 15;
+                if(degreesPlayer2 === 360) {
+                    degreesPlayer2 = 0;
+                } else if(degreesPlayer2 > 360) {
+                    degreesPlayer2 = degreesPlayer2 - 360;
                 }
-                player1.draw(degreesPlayer1);
+                player2.draw(degreesPlayer2);
             }
             break;
         // Left Arrow
         case 37:
-            if(player1.alive) {
-                degreesPlayer1 -= 15;
-                if(degreesPlayer1 === 360) {
-                    degreesPlayer1 = 0;
-                } else if(degreesPlayer1 < 0) {
-                    degreesPlayer1 = degreesPlayer1 + 360;
+            if(player2.alive) {
+                degreesPlayer2 -= 15;
+                if(degreesPlayer2 === 360) {
+                    degreesPlayer2 = 0;
+                } else if(degreesPlayer2 < 0) {
+                    degreesPlayer2 = degreesPlayer2 + 360;
                 }
-                player1.draw(degreesPlayer1);
+                player2.draw(degreesPlayer2);
             }
             break;
         // Dash 'shift'
         case 16:
-            if(player1.alive) generateLasers('player 1', player1.x, player1.y, degreesPlayer1);
+            if(player2.alive) generateLasers('player 2', player2.x, player2.y, degreesPlayer2);
             break;
         default:
             break;
     }
 });
-// P2 Controlls
+// P1 Controlls
 addEventListener("keydown", function(event) {
     switch(event.keyCode) {
         // PLAYER 2
         // W
         case 87:
-            if(player2.alive) player2.move(degreesPlayer2);
+            if(player1.alive) player1.move(degreesPlayer1);
             break;
         // D  
         case 68:
-            if(player2.alive) {
-                degreesPlayer2 += 15;
-                player2.draw(degreesPlayer2);
+            if(player1.alive) {
+                degreesPlayer1 += 15;
+                player1.draw(degreesPlayer1);
             }
             break;
         // A
         case 65:
-            if(player2.alive) {
-                degreesPlayer2 -= 15;
-                player2.draw(degreesPlayer2);
+            if(player1.alive) {
+                degreesPlayer1 -= 15;
+                player1.draw(degreesPlayer1);
             }
             break;
         // E
         case 69:
-            if(player2.alive) generateLasers('player 2', player2.x, player2.y, degreesPlayer2);
+            if(player1.alive) generateLasers('player 1', player1.x, player1.y, degreesPlayer1);
             break;
         default:
             break;
