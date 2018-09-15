@@ -167,7 +167,7 @@ function drawAsteroids() {
 }
 // Generate and add ufo to ufos array
 function generateUfos(frames) {
-    if (frames % 2600 === 0) {
+    if (frames % 1000 === 0) {
         let ufo = new Ufo(ufoImg);
         ufos.push(ufo);
     }
@@ -224,6 +224,7 @@ function drawLittleAsteroids() {
 function generateLasers(player,x,y,angle) {
     let laser = new Laser(player,x,y,angle);
     lasers.push(laser);
+    laserSound.currentTime = 0;
     laserSound.play();
 }
 // Animate laser
