@@ -167,7 +167,7 @@ function drawAsteroids() {
 }
 // Generate and add ufo to ufos array
 function generateUfos(frames) {
-    if (frames % 1000 === 0) {
+    if (frames % 800 === 0) {
         let ufo = new Ufo(ufoImg);
         ufos.push(ufo);
     }
